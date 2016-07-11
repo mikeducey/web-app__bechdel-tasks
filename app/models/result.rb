@@ -25,17 +25,19 @@ class Result < ActiveRecord::Base
 			return results
 		end
 	end
-  
-  #Retruns a list of all movies in database
-  def Result.allmovies
-    results = Result.where({"q1" => false or "q1" => true})
-    if results.empty?
+#Find any that pass at least one bechdel test criteria?
+  def Result.passesAllRatedMovies
+    match1 = (Result.where({"q1" => true})
+    match2 = Result.where({"q2" => true})
+    match3 = Result.where({"q3" => true})
+    nomatch = Result.where({"q1" => false, "q2" => false, "q3" => false})
+    combinedlist = match1.contact match2
+    if combinedlist.empty?
       return nil
     else
-      return results
+      return combinedlist
     end
   end
-
  # Checks to see if a Movie object passes the bechdel test
  #
  # Returns Boolean

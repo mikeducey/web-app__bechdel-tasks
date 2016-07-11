@@ -1,0 +1,134 @@
+Searching 48 files for "is_bechdel"
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/models/result.rb:
+   40   #
+   41   # Returns Boolean
+   42:   def is_bechdel
+   43      if self.q1 == true && self.q2 == true && self.q3 == true
+   44        return true
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/views/movies/search_results.erb:
+   23      <% if @list_of_movies != nil && @bechdel == "1" %>
+   24    		<% @list_of_movies.each do |movie| %>
+   25:   			<% if movie.result.is_bechdel == true %>
+   26  			    <div class="movie-result">
+   27  			      <a href="/movies/<%= movie.id %>/view">
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/views/movies/view.erb:
+    9  	<% if !@movie.result %>	
+   10  		This movie has not yet been rated using the Bechdel test.
+   11: 	<% elsif @movie.result.is_bechdel == true %>
+   12  		This movie <strong>passes</strong> the Bechdel test!
+   13  
+   14: 	<% else @movie.result.is_bechdel == false %>
+   15  		This movie <strong>does not pass</strong> the Bechdel test.
+   16  	<% end %>
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/tests/unit/result_test.rb:
+   85    end 
+   86  
+   87:   def test_is_bechdel_true
+   88:     assert_equal(true, @result1.is_bechdel)
+   89    end
+   90  
+   91:   def test_is_bechdel_false
+   92:     assert_equal(false, @result2.is_bechdel)
+   93    end
+   94  
+
+8 matches across 4 files
+
+
+Searching 48 files for "result.passing"
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/controllers/result_controller.rb:
+    1  MyApp.get "/results/list" do
+    2:   @bechdel_pass = Result.passing
+    3    erb :"results/gallery"
+    4  end
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/models/result.rb:
+   18   #
+   19   # Returns list of Result objects
+   20: 	def Result.passing
+   21  		results = Result.where({"q1" => true, "q2" => true, "q3" => true})
+   22  		if results.empty?
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/tests/unit/result_test.rb:
+   49  
+   50    def test_results_passing
+   51:     assert_includes(Result.passing, @result1)
+   52:     refute_includes(Result.passing, @result2)
+   53    end
+   54  
+   ..
+   58      @result1.q3 = true
+   59      @result1.save
+   60:     assert_nil(Result.passing)
+   61    end
+   62  
+
+5 matches across 3 files
+
+
+Searching 48 files for "@bechdel_pass"
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/controllers/movie_controller.rb:
+   31  
+   32    if params[:passes_bechdel] == nil
+   33:     @bechdel_pass = 2
+   34    else
+   35:     @bechdel_pass = params[:passes_bechdel]
+   36    end
+   37  
+   ..
+   46        redirect "/"
+   47      else
+   48:       redirect "/movies/#{@movie_search}/#{@category}/#{@bechdel_pass}/results"
+   49      end
+   50  
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/controllers/result_controller.rb:
+    1  MyApp.get "/results/list" do
+    2:   @bechdel_pass = Result.passing
+    3    erb :"results/gallery"
+    4  end
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/views/results/gallery.erb:
+   21      </h1>
+   22  
+   23:     <% if @bechdel_pass != nil %>
+   24:       <% @bechdel_pass.each_with_index do |movie, i| %>
+   25          <div class="movie">
+   26            <a href="/movies/<%= movie.movie_id %>/view">
+
+6 matches across 3 files
+
+
+Searching 48 files for "@list_of_movies"
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/controllers/movie_controller.rb:
+   59  
+   60    if params[:category] == "title"
+   61:     @list_of_movies = Movie.movie_search_title(params[:search].gsub(/_+/, " "))
+   62     else
+   63:     @list_of_movies = Movie.movie_search_director(params[:search].gsub(/_+/, " "))
+   64    end
+   65  
+
+/Users/kimarmstrong/Code/web-app__bechdel-tasks/app/views/movies/search_results.erb:
+   21      </h1>
+   22  
+   23:     <% if @list_of_movies != nil && @bechdel == "1" %>
+   24:   		<% @list_of_movies.each do |movie| %>
+   25    			<% if movie.result.is_bechdel == true %>
+   26  			    <div class="movie-result">
+   ..
+   31    			<% end %>
+   32  			<% end %>
+   33:     <% elsif @list_of_movies != nil && @bechdel == "2" %>
+   34:   		<% @list_of_movies.each do |movie| %>
+   35  		    <div class="movie-result">
+   36  		      <a href="/movies/<%= movie.id %>/view">
+
+6 matches across 2 files

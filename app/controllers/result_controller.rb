@@ -4,9 +4,16 @@ MyApp.get "/results/list" do
 end
 
 MyApp.get "/results/allmovies" do
-  @allmovies = 
+  @allratedmovies = Result.passesAllRatedMovies
   erb :"results/allmovies"
 end
+
+# This one works! But will not give all the movies with badge on only the ones that pass
+# MyApp.get "/results/allmovies" do
+#   @allratedmovies = Result.all
+#   erb :"results/allmovies"
+# end
+
 
 MyApp.post "/results/:id/add" do
   session["temporary_error_message"] = nil
