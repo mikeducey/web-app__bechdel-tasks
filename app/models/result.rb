@@ -27,15 +27,18 @@ class Result < ActiveRecord::Base
 	end
 #Find any that pass at least one bechdel test criteria?
   def Result.passesAllRatedMovies
-    match1 = (Result.where({"q1" => true})
-    match2 = Result.where({"q2" => true})
-    match3 = Result.where({"q3" => true})
-    nomatch = Result.where({"q1" => false, "q2" => false, "q3" => false})
-    combinedlist = match1.contact match2
-    if combinedlist.empty?
+    match1 = Result.where({"q1" => true}).to_a
+    match2 = Result.where({"q2" => true}).to_a
+    match3 = Result.where({"q3" => true}).to_a
+    nomatch = Result.where({"q1" => false, "q2" => false, "q3" => false}).to_a
+    combinedlist = match1.concat(match2)
+    combinedlist1 = combinedlist.concat(match3)
+    combinedlist2 = combinedlist1.concat(nomatch)
+    combinedlist2 = combinedlist2.uniq
+    if combinedlist1.empty?
       return nil
     else
-      return combinedlist
+      return combinedlist2
     end
   end
  # Checks to see if a Movie object passes the bechdel test
