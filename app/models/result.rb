@@ -26,6 +26,16 @@ class Result < ActiveRecord::Base
 		end
 	end
   
+  #Retruns a list of all movies in database
+  def Result.allmovies
+    results = Result.where({"q1" => false or "q1" => true})
+    if results.empty?
+      return nil
+    else
+      return results
+    end
+  end
+
  # Checks to see if a Movie object passes the bechdel test
  #
  # Returns Boolean

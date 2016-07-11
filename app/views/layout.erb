@@ -17,6 +17,9 @@
   <div class="container">
     <ul>
       <li>
+        <a href="/">Home Page</a>
+      </li>
+      <li>
         <a href="/results/list">Bechdel Gallery</a>
       </li>
 
@@ -26,7 +29,7 @@
         </li>
 
         <li class="active">
-          <a href="/login`">Log in</a>
+          <a href="/login">Log in</a>
         </li>
       <% else %>
        	<li class="active">
@@ -61,29 +64,30 @@
     <p>
       Find a Bollywood movie with <strong>strong</strong> female characters.
     </p>
-
+    <div class="search-form-actions">
     <form action="/movies/search" method="post">
       <select name="search_category">
         <option selected disabled>Choose category</option>
         <option value= "title">Title</option>
         <option value= "director">Director</option>
       </select>
-
+      <div class="search-form-input-margin">
       <input type="text" name="search" placeholder="search for a movie">
-
-      <div>
+      </div>
+      <div class="bechdel-status">
         <label>
           <input type="checkbox" name="passes_bechdel" value="1">
           Passes Bechdel Test
         </label>
       </div>
 
-      <div>
+      <div class="search-form-actions__button">
         <button>
           Search
         </button>
       </div>
     </form>
+    </div>
   </div>
 </div>
 

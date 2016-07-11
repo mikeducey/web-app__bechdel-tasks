@@ -3,6 +3,7 @@
     <h3>The Bechdel Test</h3>
 
     <h4>
+    <div class= "bechdel-test-info bechdel-test-info__lines">
       1. The movie has to have at least two women in it...<br>
       2. ...who talk to each other<br>
       3. ...about something besides a man.
@@ -17,7 +18,9 @@
 <div>
   <div>
     <h1>
+      <div class="bollywood-title bollywood-title.bollywood-title--no-margin-top block-bollywood-lead">
       <%= @new_movie.title %><br>
+      </div>
       <small>directed by <%= @new_movie.director %></small>
     </h1>
 
@@ -25,7 +28,7 @@
       <img src="<%= @new_movie.image %>" alt="<%=@new_movie.title%>">
     </a>
 
-    <div>
+    <div class="get-another-movie">
       <a href="/">Get Another Movie</a>
     </div>
   </div>

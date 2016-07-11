@@ -2,7 +2,7 @@
   <div class="container">
     <h3>The Bechdel Test</h3>
 
-    <h4>
+    <h4 class="bechdel-test-info bechdel-test-info__lines">
       1. The movie has to have at least two women in it...<br>
       2. ...who talk to each other<br>
       3. ...about something besides a man.
@@ -23,7 +23,7 @@
     <% if @list_of_movies != nil && @bechdel == "1" %>
   		<% @list_of_movies.each do |movie| %>
   			<% if movie.result.is_bechdel == true %>
-			    <div class="movie">
+			    <div class="movie-result">
 			      <a href="/movies/<%= movie.id %>/view">
 			        <img src="<%= movie.image %>">
 			      </a>
@@ -32,7 +32,7 @@
 			<% end %>
     <% elsif @list_of_movies != nil && @bechdel == "2" %>
   		<% @list_of_movies.each do |movie| %>
-		    <div class="movie">
+		    <div class="movie-result">
 		      <a href="/movies/<%= movie.id %>/view">
 		        <img src="<%= movie.image %>">
 		      </a>
